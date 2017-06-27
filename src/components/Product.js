@@ -25,5 +25,15 @@ Product.propTypes = {
   name: PropTypes.string.isRequired,
   producer: PropTypes.string,
   hasWatermark: PropTypes.bool,
-  color: PropTypes.oneOf(['white', 'eggshell-white', 'salmon']).isRequired
+  color: PropTypes.oneOf(['white', 'eggshell-white', 'salmon']).isRequired,
+  weight: (props, propName) => {
+    let weight = props[propName]
+    if (weight === undefined) {
+      return new Error(`The ${weight} prop validator does not validate the value as being required.`)
+    } else if (isNaN(weight)) {
+      return new Error( `${weight} not valid`)
+    } else if (weight < 80 || weight > 300) {
+      return new Error(`${weight} not valid`)
+    }
+  }
 }
